@@ -267,3 +267,22 @@ faqItems.forEach(item => {
 if (typedSpan) {
     setTimeout(typeEffect, 2500);
 }
+
+// 8. Skills Progress Bar Animation
+const skillFills = document.querySelectorAll('.skill-fill');
+if (skillFills.length > 0) {
+    const skillObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const fill = entry.target;
+                const targetWidth = fill.getAttribute('data-width');
+                setTimeout(() => {
+                    fill.style.width = targetWidth + '%';
+                }, 200);
+                skillObserver.unobserve(fill);
+            }
+        });
+    }, { threshold: 0.3 });
+
+    skillFills.forEach(fill => skillObserver.observe(fill));
+}
